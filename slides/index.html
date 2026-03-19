@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClawFit · 演示幻灯片</title>
+  <style>
+    :root {
+      --bg: #0f0f14;
+      --bg2: #17171f;
+      --bg3: #1f1f2b;
+      --primary: #FF6B35;
+      --primary-light: #FF8F5E;
+      --secondary: #06D6A0;
+      --accent: #FFD23F;
+      --text: #f0f0f5;
+      --text2: #8a8a9a;
+      --border: #2a2a38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      overflow: hidden; height: 100vh;
+    }
+
+    /* Slide container */
+    .slides-wrapper {
+      position: relative; width: 100vw; height: 100vh; overflow: hidden;
+    }
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 80px; text-align: center;
+      opacity: 0; transform: translateX(60px);
+      transition: opacity .5s ease, transform .5s ease;
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1; transform: translateX(0); pointer-events: auto;
+    }
+    .slide.exit-left {
+      opacity: 0; transform: translateX(-60px);
+    }
+
+    /* ── Slide Typography ── */
+    .slide-badge {
+      display: inline-block; padding: 5px 18px; border-radius: 20px;
+      font-size: 13px; letter-spacing: .04em; margin-bottom: 24px;
+      background: rgba(255,107,53,.12); border: 1px solid rgba(255,107,53,.35); color: var(--primary-light);
+    }
+    .slide h1 {
+      font-size: 4.5rem; font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px;
+      background: linear-gradient(135deg, #FF6B35, #FF8F5E, #06D6A0);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .slide h2 {
+      font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; line-height: 1.2;
+    }
+    .slide h2 .gradient {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .slide .subtitle { font-size: 1.3rem; color: var(--text2); max-width: 700px; line-height: 1.6; margin-bottom: 20px; }
+    .slide .tagline { font-size: 1rem; color: var(--secondary); font-style: italic; }
+
+    /* Pain items */
+    .pain-list {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+      max-width: 800px; margin: 24px auto 0; text-align: left;
+    }
+    .pain-item {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px 20px; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .pain-item .pi-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .pain-item .pi-text { font-size: .95rem; color: var(--text2); line-height: 1.5; }
+    .pain-item strong { color: var(--text); }
+
+    /* Feature grid */
+    .feat-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      max-width: 900px; margin: 28px auto 0; text-align: left;
+    }
+    .feat-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .feat-card .fc-icon { font-size: 1.6rem; }
+    .feat-card .fc-title { font-size: 1rem; font-weight: 700; }
+    .feat-card .fc-desc { font-size: .85rem; color: var(--text2); line-height: 1.5; }
+    .feat-card.coach { border-left: 3px solid var(--primary); }
+    .feat-card.student { border-left: 3px solid var(--secondary); }
+    .feat-label {
+      display: inline-block; padding: 4px 14px; border-radius: 20px;
+      font-size: .8rem; font-weight: 700; margin-bottom: 8px;
+    }
+    .feat-label.orange { background: rgba(255,107,53,.12); color: var(--primary-light); }
+    .feat-label.green { background: rgba(6,214,160,.12); color: var(--secondary); }
+
+    /* Architecture flow */
+    .arch-row {
+      display: flex; align-items: center; justify-content: center; gap: 0;
+      margin: 12px 0; flex-wrap: nowrap;
+    }
+    .arch-node {
+      padding: 14px 20px; border-radius: 10px; font-size: .9rem; font-weight: 600;
+      text-align: center; border: 1px solid var(--border);
+    }
+    .arch-node small { display: block; font-size: .7rem; color: var(--text2); font-weight: 400; margin-top: 2px; }
+    .arch-node.user { background: rgba(255,107,53,.1); border-color: rgba(255,107,53,.3); color: var(--primary-light); }
+    .arch-node.app { background: rgba(255,210,63,.08); border-color: rgba(255,210,63,.2); color: var(--accent); }
+    .arch-node.ai { background: rgba(6,214,160,.1); border-color: rgba(6,214,160,.3); color: var(--secondary); }
+    .arch-node.data { background: rgba(59,130,246,.08); border-color: rgba(59,130,246,.2); color: #79c0ff; }
+    .arch-arrow { color: var(--text2); font-size: 1.2rem; padding: 0 10px; }
+
+    /* Mini chat demo */
+    .demo-row {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+      max-width: 860px; margin: 24px auto 0; text-align: left;
+    }
+    .demo-box {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px 18px;
+    }
+    .demo-box-title { font-size: .85rem; font-weight: 700; margin-bottom: 10px; display: flex; gap: 6px; align-items: center; }
+    .demo-msg { display: flex; gap: 8px; margin-bottom: 6px; align-items: flex-start; }
+    .demo-av { width: 22px; height: 22px; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .demo-av.human { background: rgba(255,107,53,.15); }
+    .demo-av.bot { background: rgba(6,214,160,.15); }
+    .demo-bbl { padding: 6px 10px; border-radius: 8px; font-size: .8rem; line-height: 1.5; max-width: 90%; }
+    .demo-bbl.h { background: rgba(255,255,255,.06); color: var(--text); }
+    .demo-bbl.b { background: rgba(6,214,160,.06); border: 1px solid rgba(6,214,160,.12); color: var(--text); }
+    .demo-bbl strong { color: var(--secondary); }
+
+    /* Stats row */
+    .stats-row {
+      display: flex; gap: 24px; justify-content: center; margin: 28px 0;
+    }
+    .s-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 14px;
+      padding: 24px 32px; text-align: center; min-width: 140px;
+    }
+    .s-card .s-icon { font-size: 1.6rem; margin-bottom: 6px; }
+    .s-card .s-num {
+      font-size: 2rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .s-card .s-label { font-size: .8rem; color: var(--text2); margin-top: 4px; }
+
+    /* Highlight list */
+    .hl-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      max-width: 800px; margin: 24px auto 0;
+    }
+    .hl-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px; text-align: center;
+    }
+    .hl-card .hl-icon { font-size: 2rem; margin-bottom: 8px; }
+    .hl-card .hl-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .hl-card .hl-desc { font-size: .85rem; color: var(--text2); line-height: 1.5; }
+
+    /* Final CTA */
+    .final-links { display: flex; gap: 14px; justify-content: center; margin-top: 28px; }
+    .final-link {
+      padding: 12px 28px; border-radius: 10px; font-size: .95rem; font-weight: 700;
+      text-decoration: none; transition: all .3s;
+    }
+    .final-link.primary {
+      background: linear-gradient(135deg, var(--primary), #E85D26); color: #fff;
+    }
+    .final-link.secondary {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: var(--text);
+    }
+    .final-link:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+
+    /* ── Controls ── */
+    .slide-controls {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 16px; z-index: 100;
+      background: rgba(23,23,31,.9); backdrop-filter: blur(12px);
+      padding: 10px 24px; border-radius: 100px; border: 1px solid rgba(255,255,255,.08);
+    }
+    .slide-btn {
+      width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06); color: var(--text); font-size: 1.1rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .slide-btn:hover { background: rgba(255,255,255,.12); }
+    .slide-btn:disabled { opacity: .3; cursor: default; }
+    .slide-counter { font-size: .85rem; color: var(--text2); min-width: 60px; text-align: center; }
+    .slide-dots { display: flex; gap: 6px; }
+    .slide-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.15);
+      cursor: pointer; transition: all .2s;
+    }
+    .slide-dot.active { background: var(--primary); width: 24px; border-radius: 4px; }
+
+    /* ── Speaker Notes (hover bottom-right) ── */
+    .speaker-notes {
+      position: fixed; bottom: 80px; right: 24px; z-index: 100;
+      max-width: 320px; padding: 16px 20px;
+      background: rgba(23,23,31,.95); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.08); border-radius: 12px;
+      font-size: .82rem; color: var(--text2); line-height: 1.6;
+      opacity: 0; transform: translateY(8px);
+      transition: all .3s; pointer-events: none;
+    }
+    .speaker-notes.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .notes-toggle {
+      position: fixed; bottom: 80px; right: 24px; z-index: 101;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      color: var(--text2); font-size: .9rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .notes-toggle:hover { background: rgba(255,255,255,.12); }
+    .notes-toggle.on { background: rgba(255,107,53,.15); color: var(--primary-light); border-color: rgba(255,107,53,.3); }
+
+    /* Back link */
+    .back-link {
+      position: fixed; top: 20px; left: 24px; z-index: 100;
+      color: var(--text2); text-decoration: none; font-size: .85rem;
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 8px;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06);
+      transition: all .2s;
+    }
+    .back-link:hover { background: rgba(255,255,255,.08); color: var(--text); }
+  </style>
+</head>
+<body>
+
+<a href="../" class="back-link">← 返回首页</a>
+
+<div class="slides-wrapper" id="slidesWrapper">
+
+  <!-- Slide 1: Title -->
+  <div class="slide active" data-notes="开场：介绍项目名称和定位。ClawFit 是一个基于 OpenClaw 构建的 AI 健身教练助手，运行在飞书平台上。">
+    <div class="slide-badge">北纬·龙虾大赛（第一届）· 生产力赛道</div>
+    <h1>ClawFit</h1>
+    <div class="subtitle">AI 健身教练助手</div>
+    <div class="tagline">"让每一位教练都能高效管理百名学员"</div>
+    <div class="stats-row">
+      <div class="s-card"><div class="s-icon">👥</div><div class="s-num">2端</div><div class="s-label">教练 + 学员</div></div>
+      <div class="s-card"><div class="s-icon">📋</div><div class="s-num">30+</div><div class="s-label">自然语言指令</div></div>
+      <div class="s-card"><div class="s-icon">👁️</div><div class="s-num">3类</div><div class="s-label">AI 图片分析</div></div>
+      <div class="s-card"><div class="s-icon">⏰</div><div class="s-num">24/7</div><div class="s-label">自动运营</div></div>
+    </div>
+  </div>
+
+  <!-- Slide 2: Pain Points -->
+  <div class="slide" data-notes="痛点分析：健身教练普遍面临的管理难题。这些问题在学员超过 10 人时尤为明显，传统方式无法 scale。">
+    <h2>健身教练的<span class="gradient">日常困境</span></h2>
+    <div class="subtitle">学员超过 10 人，管理就开始失控</div>
+    <div class="pain-list">
+      <div class="pain-item"><div class="pi-icon">📋</div><div class="pi-text"><strong>信息散乱</strong><br>体测数据、训练计划、伤病记录分散在微信、笔记、Excel 各处</div></div>
+      <div class="pain-item"><div class="pi-icon">⏰</div><div class="pi-text"><strong>跟进困难</strong><br>谁该打卡没打？谁的膝盖不舒服？全凭教练记忆</div></div>
+      <div class="pain-item"><div class="pi-icon">📊</div><div class="pi-text"><strong>效果难量化</strong><br>学员到底进步了没？缺乏系统性的数据追踪和分析</div></div>
+      <div class="pain-item"><div class="pi-icon">💸</div><div class="pi-text"><strong>续费难决策</strong><br>不知道哪些学员即将流失，续费时机全靠感觉</div></div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Solution Overview -->
+  <div class="slide" data-notes="解决方案：ClawFit 通过飞书聊天界面提供全链路服务，教练和学员都不需要学习新工具。">
+    <h2>ClawFit 的<span class="gradient">解决方案</span></h2>
+    <div class="subtitle">以飞书为载体，AI 驱动全链路管理</div>
+    <div class="arch-row" style="margin-top:28px;">
+      <div class="arch-node user">🧑‍🏫 教练<small>飞书私聊</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-node app">🤖 飞书机器人<small>消息路由</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-node ai">🧠 AI 引擎<small>Claude + 多模态</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-node data">💾 数据层<small>Markdown + Bitable</small></div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-node user">🏋️ 学员<small>群聊/私聊</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-node app">📸 多模态入口<small>图片自动识别</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-node ai">⏰ Cron 调度<small>定时提醒/周报</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-node data">📊 飞书套件<small>文档·表格·日历</small></div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Coach-side Features -->
+  <div class="slide" data-notes="教练端功能：涵盖从学员建档到运营分析的完整管理闭环。所有操作都通过自然语言指令完成。">
+    <h2>教练端<span class="gradient">核心功能</span></h2>
+    <div class="feat-grid">
+      <div class="feat-card coach"><div class="fc-icon">📋</div><div class="fc-title">智能建档</div><div class="fc-desc">对话/模板/批量三种方式<br>自动生成结构化档案</div></div>
+      <div class="feat-card coach"><div class="fc-icon">📝</div><div class="fc-title">训练计划生成</div><div class="fc-desc">基于学员数据 AI 生成<br>个性化周训练计划</div></div>
+      <div class="feat-card coach"><div class="fc-icon">🍽️</div><div class="fc-title">饮食方案</div><div class="fc-desc">热量/宏量素目标<br>训练日/休息日差异化</div></div>
+      <div class="feat-card coach"><div class="fc-icon">📊</div><div class="fc-title">行为分析</div><div class="fc-desc">打卡率·连续缺勤预警<br>续费时机建议</div></div>
+      <div class="feat-card coach"><div class="fc-icon">📈</div><div class="fc-title">数据看板</div><div class="fc-desc">飞书多维表格集成<br>目标分布·趋势·排行</div></div>
+      <div class="feat-card coach"><div class="fc-icon">⏰</div><div class="fc-title">定时任务</div><div class="fc-desc">08:55 晨提醒 · 21:33 晚检查<br>周日 20:03 自动周报</div></div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Student-side Features -->
+  <div class="slide" data-notes="学员端功能：学员通过飞书直接与 ClawFit 交互。最大亮点是三类图片 AI 分析能力。">
+    <h2>学员端<span class="gradient">核心功能</span></h2>
+    <div class="feat-grid">
+      <div class="feat-card student"><div class="fc-icon">📸</div><div class="fc-title">AI 动作分析</div><div class="fc-desc">上传训练照片<br>姿势评估 + 改进建议</div></div>
+      <div class="feat-card student"><div class="fc-icon">🍜</div><div class="fc-title">饮食 AI 分析</div><div class="fc-desc">餐食拍照 → 菜品识别<br>热量 + 三大营养素拆解</div></div>
+      <div class="feat-card student"><div class="fc-icon">⚖️</div><div class="fc-title">体重 OCR</div><div class="fc-desc">拍体重秤照片<br>自动识别 + 趋势对比</div></div>
+      <div class="feat-card student"><div class="fc-icon">💬</div><div class="fc-title">训练打卡</div><div class="fc-desc">文字/照片多种方式<br>即时 AI 反馈</div></div>
+      <div class="feat-card student"><div class="fc-icon">🩺</div><div class="fc-title">身体反馈</div><div class="fc-desc">报告不适 → 标记伤病<br>自动调整训练计划</div></div>
+      <div class="feat-card student"><div class="fc-icon">🔄</div><div class="fc-title">角色切换</div><div class="fc-desc">单账号演示教练/学员<br>飞书 ID 身份绑定</div></div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Real Demo -->
+  <div class="slide" data-notes="真实运行效果展示：四个核心场景的对话截取。这些都是系统实际运行时的交互记录。">
+    <h2>真实运行<span class="gradient">效果展示</span></h2>
+    <div class="demo-row">
+      <div class="demo-box">
+        <div class="demo-box-title">📋 对话式建档</div>
+        <div class="demo-msg"><div class="demo-av human">🧑‍🏫</div><div class="demo-bbl h">新学员</div></div>
+        <div class="demo-msg"><div class="demo-av bot">💪</div><div class="demo-bbl b">好的！开始新学员建档 📋 请告诉我学员的基本信息…</div></div>
+        <div class="demo-msg"><div class="demo-av human">🧑‍🏫</div><div class="demo-bbl h">陈强，男，26岁，180cm/85kg</div></div>
+        <div class="demo-msg"><div class="demo-av bot">💪</div><div class="demo-bbl b">✅ <strong>档案创建完成！</strong> BMI: 26.2 · 目标: 75kg</div></div>
+      </div>
+      <div class="demo-box">
+        <div class="demo-box-title">💬 训练打卡反馈</div>
+        <div class="demo-msg"><div class="demo-av human">🏋️</div><div class="demo-bbl h">打卡 胸部训练：卧推60kg 4×8</div></div>
+        <div class="demo-msg"><div class="demo-av bot">💪</div><div class="demo-bbl b">✅ <strong>打卡成功！</strong> 完成度: 90%<br>卧推60kg对新手非常出色！💪</div></div>
+      </div>
+      <div class="demo-box">
+        <div class="demo-box-title">🍽️ 餐食 AI 分析</div>
+        <div class="demo-msg"><div class="demo-av human">🏋️</div><div class="demo-bbl h">📷 [餐食照片]</div></div>
+        <div class="demo-msg"><div class="demo-av bot">💪</div><div class="demo-bbl b">🍽️ 识别：番茄鸡蛋面+煎蛋+青菜<br>🔥 <strong>~520 kcal</strong><br>碳水65g · 蛋白18g · 脂肪21g</div></div>
+      </div>
+      <div class="demo-box">
+        <div class="demo-box-title">⚖️ 体重秤 OCR</div>
+        <div class="demo-msg"><div class="demo-av human">🏋️</div><div class="demo-bbl h">📷 [体重秤照片]</div></div>
+        <div class="demo-msg"><div class="demo-av bot">💪</div><div class="demo-bbl b">⚖️ 识别: <strong>76.0 kg</strong><br>变化: -9.0 kg ⬇️🎉<br>距目标仅差 1kg！</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Highlights & Summary -->
+  <div class="slide" data-notes="项目亮点总结：零 GUI 开发，纯对话式交互。教练+学员双端覆盖。三类多模态 AI 分析。最后感谢评委和 OpenClaw 团队。">
+    <h2>项目<span class="gradient">亮点</span></h2>
+    <div class="hl-grid">
+      <div class="hl-card"><div class="hl-icon">🎯</div><div class="hl-title">零 GUI 开发</div><div class="hl-desc">纯对话式交互<br>飞书即前端</div></div>
+      <div class="hl-card"><div class="hl-icon">🔄</div><div class="hl-title">双端覆盖</div><div class="hl-desc">教练管理 + 学员自助<br>同一系统两种视角</div></div>
+      <div class="hl-card"><div class="hl-icon">📸</div><div class="hl-title">多模态 AI</div><div class="hl-desc">训练姿势 · 餐食营养<br>体重 OCR 三类分析</div></div>
+    </div>
+    <div style="margin-top: 40px;">
+      <div class="tagline" style="font-size:1.2rem;">💪 ClawFit — 让 AI 成为教练的超级助手</div>
+      <div style="color: var(--text2); font-size: .9rem; margin-top: 8px;">Built with OpenClaw · Powered by Claude · Running on Feishu</div>
+    </div>
+    <div class="final-links">
+      <a href="../report/" class="final-link primary">📄 项目说明书</a>
+      <a href="../poster/" class="final-link secondary">🎨 项目海报</a>
+      <a href="../" class="final-link secondary">🏠 返回首页</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Controls -->
+<div class="slide-controls">
+  <button class="slide-btn" id="prevBtn" disabled>‹</button>
+  <div class="slide-dots" id="slideDots"></div>
+  <span class="slide-counter" id="slideCounter">1 / 7</span>
+  <button class="slide-btn" id="nextBtn">›</button>
+</div>
+
+<!-- Notes toggle -->
+<button class="notes-toggle" id="notesToggle" title="演讲者备注">📝</button>
+<div class="speaker-notes" id="speakerNotes"></div>
+
+<script>
+(() => {
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.getElementById('slideDots');
+  const counter = document.getElementById('slideCounter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const notesEl = document.getElementById('speakerNotes');
+  const notesToggle = document.getElementById('notesToggle');
+  let current = 0;
+  let showNotes = false;
+
+  // Create dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dots.appendChild(dot);
+  });
+
+  function goTo(index) {
+    if (index < 0 || index >= slides.length || index === current) return;
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit-left');
+    setTimeout(() => slides[current === index ? current : current].classList.remove('exit-left'), 500);
+
+    const prev = current;
+    current = index;
+    slides[current].classList.add('active');
+
+    // Cleanup
+    setTimeout(() => { slides[prev].classList.remove('exit-left'); }, 500);
+
+    updateUI();
+  }
+
+  function updateUI() {
+    counter.textContent = `${current + 1} / ${slides.length}`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === slides.length - 1;
+    dots.querySelectorAll('.slide-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    notesEl.textContent = slides[current].dataset.notes || '';
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+    if (e.key === 'n' || e.key === 'N') { notesToggle.click(); }
+  });
+
+  // Notes toggle
+  notesToggle.addEventListener('click', () => {
+    showNotes = !showNotes;
+    notesEl.classList.toggle('visible', showNotes);
+    notesToggle.classList.toggle('on', showNotes);
+  });
+
+  // Init
+  notesEl.textContent = slides[0].dataset.notes || '';
+  updateUI();
+})();
+</script>
+
+</body>
+</html>

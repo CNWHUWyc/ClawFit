@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClawFit — 项目说明书</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/report.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="../" class="nav-logo">💪 ClawFit</a>
+      <div class="nav-links">
+        <a href="../#features">功能</a>
+        <a href="../#architecture">架构</a>
+        <a href="../#demo">实战效果</a>
+        <a href="./" class="active">项目说明书</a>
+      </div>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+  </nav>
+
+  <!-- Report Hero -->
+  <section class="report-hero">
+    <div class="container">
+      <div class="report-hero-content">
+        <span class="section-tag">📄 项目说明书</span>
+        <h1>ClawFit — AI 健身教练助手</h1>
+        <p>北纬·龙虾大赛（第一届）· 生产力龙虾赛道 · 参赛作品</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOC -->
+  <section class="toc-section">
+    <div class="container">
+      <div class="toc">
+        <h3>目录</h3>
+        <ol>
+          <li><a href="#sec1">项目概述</a></li>
+          <li><a href="#sec2">技术架构</a></li>
+          <li><a href="#sec3">教练端功能详解</a></li>
+          <li><a href="#sec4">学员端功能详解</a></li>
+          <li><a href="#sec5">AI 能力详解</a></li>
+          <li><a href="#sec6">指令系统一览</a></li>
+          <li><a href="#sec7">数据存储设计</a></li>
+          <li><a href="#sec8">安全与权限</a></li>
+          <li><a href="#sec9">实际运行效果</a></li>
+          <li><a href="#sec10">总结与展望</a></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Report Content -->
+  <section class="report-content">
+    <div class="container">
+
+      <!-- Section 1 -->
+      <div class="doc-section" id="sec1">
+        <h2><span class="sec-num">01</span> 项目概述</h2>
+
+        <h3>1.1 项目背景</h3>
+        <p>健身行业正经历数字化转型，但大多数私人教练仍依赖纸质记录、Excel 表格和碎片化的微信沟通管理学员。一位教练通常同时带 20-50 名学员，面临以下痛点：</p>
+        <ul>
+          <li><strong>信息分散</strong>：学员体测数据、训练计划、饮食记录散落在不同平台</li>
+          <li><strong>跟进低效</strong>：无法及时追踪学员打卡情况，流失风险识别滞后</li>
+          <li><strong>服务同质化</strong>：难以针对每位学员的身体条件提供个性化方案</li>
+          <li><strong>数据孤岛</strong>：训练数据、饮食数据、体重变化无法联动分析</li>
+        </ul>
+
+        <h3>1.2 解决方案</h3>
+        <p><strong>ClawFit</strong> 是一款基于 AI 的智能健身教练助手，以飞书为载体，通过自然语言交互为健身教练提供<strong>学员管理、计划生成、打卡跟踪、饮食分析、运营洞察</strong>的一站式解决方案。</p>
+
+        <div class="highlight-grid three-col">
+          <div class="highlight-box orange">
+            <div class="hb-icon">🎯</div>
+            <h4>教练端</h4>
+            <p>学员建档 · 计划生成<br>行为分析 · 运营看板</p>
+          </div>
+          <div class="highlight-box purple">
+            <div class="hb-icon">📱</div>
+            <h4>学员端</h4>
+            <p>训练打卡 · 饮食记录<br>体重追踪 · 即时反馈</p>
+          </div>
+          <div class="highlight-box green">
+            <div class="hb-icon">🤖</div>
+            <h4>AI 引擎</h4>
+            <p>图片识别 · 营养分析<br>动作评估 · 智能提醒</p>
+          </div>
+        </div>
+
+        <h3>1.3 核心价值对比</h3>
+        <div class="doc-table">
+          <table>
+            <thead>
+              <tr><th>维度</th><th>传统方式</th><th>ClawFit</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>学员建档</td><td>手动 Excel，耗时 15-30 分钟</td><td>对话式/模板/批量导入，3 分钟完成</td></tr>
+              <tr><td>训练计划</td><td>通用模板，千人一面</td><td>AI 根据个人数据生成个性化方案</td></tr>
+              <tr><td>打卡跟踪</td><td>微信群接龙，难以量化</td><td>文字/图片/语音多形态打卡，自动统计</td></tr>
+              <tr><td>饮食管理</td><td>完全依赖学员自觉</td><td>拍照即分析，AI 实时估算热量和营养素</td></tr>
+              <tr><td>流失预警</td><td>感觉驱动，往往为时已晚</td><td>数据驱动，≥3 天缺勤自动预警</td></tr>
+              <tr><td>运营报告</td><td>手动汇总，费时费力</td><td>自动生成周报，一键查看全局数据</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="doc-section" id="sec2">
+        <h2><span class="sec-num">02</span> 技术架构</h2>
+
+        <h3>2.1 整体架构</h3>
+        <div class="arch-visual">
+          <div class="av-row">
+            <div class="av-label">用户层</div>
+            <div class="av-items">
+              <div class="av-box av-user">🧑‍🏫 教练端<br><small>飞书私聊</small></div>
+              <div class="av-box av-user">🏋️ 学员端<br><small>飞书群聊/私聊</small></div>
+            </div>
+          </div>
+          <div class="av-connector">⬇ ⬆</div>
+          <div class="av-row">
+            <div class="av-label">应用层</div>
+            <div class="av-items">
+              <div class="av-box av-app">🤖 飞书机器人</div>
+              <div class="av-box av-app">📄 云文档</div>
+              <div class="av-box av-app">📊 多维表格</div>
+              <div class="av-box av-app">📅 日历</div>
+            </div>
+          </div>
+          <div class="av-connector">⬇ ⬆</div>
+          <div class="av-row">
+            <div class="av-label">智能层</div>
+            <div class="av-items">
+              <div class="av-box av-ai">🧠 LLM<br><small>Claude</small></div>
+              <div class="av-box av-ai">👁️ 视觉<br><small>多模态</small></div>
+              <div class="av-box av-ai">📝 NLP<br><small>指令解析</small></div>
+            </div>
+          </div>
+          <div class="av-connector">⬇ ⬆</div>
+          <div class="av-row">
+            <div class="av-label">数据层</div>
+            <div class="av-items">
+              <div class="av-box av-data">💾 Markdown 存储</div>
+              <div class="av-box av-data">⏰ Cron 引擎</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2.2 技术栈</h3>
+        <div class="doc-table">
+          <table>
+            <thead>
+              <tr><th>层级</th><th>技术选型</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>运行平台</td><td>OpenClaw + 妙搭云电脑</td><td>7×24 小时在线的 AI Agent 运行时</td></tr>
+              <tr><td>交互载体</td><td>飞书（Lark）</td><td>企业级 IM，支持机器人、文档、表格</td></tr>
+              <tr><td>AI 模型</td><td>Claude Sonnet / Opus</td><td>大语言模型，对话理解和内容生成</td></tr>
+              <tr><td>图片分析</td><td>妙搭多模态模型</td><td>训练动作、餐食热量、体重秤 OCR</td></tr>
+              <tr><td>数据存储</td><td>Markdown + 飞书多维表格</td><td>本地结构化 + 云端可视化</td></tr>
+              <tr><td>定时调度</td><td>OpenClaw Cron</td><td>晨间提醒、晚间检查、周报生成</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="doc-section" id="sec3">
+        <h2><span class="sec-num">03</span> 教练端功能详解</h2>
+
+        <h3>3.1 学员建档系统</h3>
+        <p>ClawFit 支持<strong>三种建档方式</strong>，适配不同场景需求：</p>
+        <div class="highlight-grid three-col">
+          <div class="highlight-box blue">
+            <div class="hb-icon">💬</div>
+            <h4>对话式建档</h4>
+            <p>发送「新学员」，通过自然对话逐步收集信息，自动生成档案</p>
+          </div>
+          <div class="highlight-box green">
+            <div class="hb-icon">📄</div>
+            <h4>模板导入</h4>
+            <p>下载 Markdown 模板，离线填写后上传，系统自动解析</p>
+          </div>
+          <div class="highlight-box purple">
+            <div class="hb-icon">📊</div>
+            <h4>批量导入</h4>
+            <p>CSV 模板批量填写，一次性导入多位学员，适合大规模迁移</p>
+          </div>
+        </div>
+
+        <h4>档案信息维度</h4>
+        <div class="doc-table">
+          <table>
+            <thead>
+              <tr><th>维度</th><th>具体字段</th><th>用途</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>基础信息</td><td>姓名、性别、年龄、身高、体重、体脂率</td><td>计算 BMI，制定训练强度</td></tr>
+              <tr><td>健身目标</td><td>减脂/增肌/体态矫正/体能提升</td><td>个性化计划方向</td></tr>
+              <tr><td>身体状况</td><td>伤病史、禁忌动作</td><td>安全训练的底线</td></tr>
+              <tr><td>训练条件</td><td>经验等级、可用时间、场地、设备</td><td>匹配可执行的方案</td></tr>
+              <tr><td>饮食习惯</td><td>忌口、过敏、饮食偏好</td><td>饮食方案制定依据</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="screenshot-placeholder">
+          <span>📌 截图位置：对话式建档交互截图</span>
+        </div>
+
+        <h3>3.2 个性化训练计划生成</h3>
+        <p>教练发送 <code>生成计划 &lt;学员名&gt;</code>，AI 根据学员多维数据自动生成个性化周训练计划，每天包含：热身（5-10min）→ 主训练（动作+组数×次数+休息时间）→ 拉伸（5-10min）。</p>
+
+        <h3>3.3 运营分析与预警</h3>
+        <div class="highlight-grid two-col">
+          <div class="highlight-box orange">
+            <h4>📈 运营指标</h4>
+            <ul>
+              <li>打卡率趋势（周/月）</li>
+              <li>完成率分布</li>
+              <li>体重/体脂变化趋势</li>
+              <li>饮食打卡达标率</li>
+            </ul>
+          </div>
+          <div class="highlight-box red">
+            <h4>🚨 预警机制</h4>
+            <ul>
+              <li>🔴 连续缺勤 ≥3 天 → 流失风险</li>
+              <li>🟡 完成率 &lt; 60% → 计划调整</li>
+              <li>🟢 续费时机识别 → 商业提醒</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>3.4 可视化数据看板</h3>
+        <p>基于飞书多维表格，提供学员目标分布（饼图）、打卡热力图（日历视图）、体重变化（折线图）、打卡率排行（进度条）、流失预警（看板视图）等多维可视化。</p>
+
+        <h3>3.5 定时自动化任务</h3>
+        <div class="doc-table">
+          <table>
+            <thead>
+              <tr><th>任务</th><th>执行时间</th><th>功能</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>晨间训练提醒</td><td>每天 08:55</td><td>提醒当日有训练计划的学员</td></tr>
+              <tr><td>晚间打卡检查</td><td>每天 21:33</td><td>检查未打卡学员并推送提醒</td></tr>
+              <tr><td>周度运营报告</td><td>每周日 20:03</td><td>自动生成并推送运营数据</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="doc-section" id="sec4">
+        <h2><span class="sec-num">04</span> 学员端功能详解</h2>
+
+        <h3>4.1 智能图片识别</h3>
+        <p>学员发送任意图片，AI 视觉引擎自动判断类型并分类处理：</p>
+        <div class="flow-diagram">
+          <div class="flow-node flow-start">📷 学员发送图片</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node flow-decision">AI 图片分类</div>
+          <div class="flow-branches">
+            <div class="flow-branch">
+              <div class="flow-arrow-down">↓</div>
+              <div class="flow-node flow-action orange-bg">🏋️ 训练照片<br><small>动作分析</small></div>
+            </div>
+            <div class="flow-branch">
+              <div class="flow-arrow-down">↓</div>
+              <div class="flow-node flow-action blue-bg">⚖️ 体重秤<br><small>OCR 识别</small></div>
+            </div>
+            <div class="flow-branch">
+              <div class="flow-arrow-down">↓</div>
+              <div class="flow-node flow-action green-bg">🍽️ 餐食照片<br><small>营养分析</small></div>
+            </div>
+            <div class="flow-branch">
+              <div class="flow-arrow-down">↓</div>
+              <div class="flow-node flow-action gray-bg">❓ 其他<br><small>询问用途</small></div>
+            </div>
+          </div>
+        </div>
+
+        <h3>4.2 多形态训练打卡</h3>
+        <div class="highlight-grid three-col">
+          <div class="highlight-box blue">
+            <div class="hb-icon">✏️</div>
+            <h4>文字打卡</h4>
+            <p>发送「打卡 + 训练内容」描述</p>
+          </div>
+          <div class="highlight-box green">
+            <div class="hb-icon">📸</div>
+            <h4>图片打卡</h4>
+            <p>发送训练照片，AI 自动分析动作</p>
+          </div>
+          <div class="highlight-box orange">
+            <div class="hb-icon">⚖️</div>
+            <h4>体重记录</h4>
+            <p>发送数值或拍体重秤照片 OCR</p>
+          </div>
+        </div>
+
+        <h3>4.3 饮食 AI 分析</h3>
+        <p>ClawFit 最具特色的功能。学员只需拍一张餐食照片，AI 即可完成：</p>
+        <ol>
+          <li>🍽️ <strong>菜品识别</strong> — 自动识别照片中的所有食物</li>
+          <li>🔥 <strong>热量估算</strong> — 计算总热量（kcal），误差 ±15%</li>
+          <li>📊 <strong>营养素拆解</strong> — 碳水/蛋白质/脂肪克数与占比</li>
+          <li>💬 <strong>个性化建议</strong> — 根据学员目标给出针对性建议</li>
+        </ol>
+
+        <h4>餐次自动判断</h4>
+        <div class="doc-table compact">
+          <table>
+            <thead><tr><th>时间段</th><th>自动识别</th></tr></thead>
+            <tbody>
+              <tr><td>05:00 - 10:00</td><td>早餐</td></tr>
+              <tr><td>10:00 - 14:00</td><td>午餐</td></tr>
+              <tr><td>14:00 - 18:00</td><td>加餐</td></tr>
+              <tr><td>18:00 - 22:00</td><td>晚餐</td></tr>
+              <tr><td>22:00 - 05:00</td><td>夜宵</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 5 -->
+      <div class="doc-section" id="sec5">
+        <h2><span class="sec-num">05</span> AI 能力详解</h2>
+
+        <h3>5.1 多模态图片分析</h3>
+        <div class="doc-table">
+          <table>
+            <thead>
+              <tr><th>分析类型</th><th>输入</th><th>AI 输出</th><th>应用场景</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>训练动作分析</td><td>训练照片</td><td>动作识别→姿势评估→改进建议→风险提示</td><td>图片打卡</td></tr>
+              <tr><td>体重秤 OCR</td><td>体重秤照片</td><td>数值提取→单位转换→历史对比→趋势分析</td><td>体重记录</td></tr>
+              <tr><td>餐食营养分析</td><td>餐食照片</td><td>菜品识别→热量估算→营养素拆解→饮食建议</td><td>饮食打卡</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>5.2 自然语言交互</h3>
+        <ul>
+          <li><strong>指令式交互</strong>：关键词触发特定功能（如「建档」「打卡」「分析」）</li>
+          <li><strong>自由对话</strong>：自然语言描述训练感受、提问健身知识</li>
+          <li><strong>上下文理解</strong>：记住对话历史，提供连贯体验</li>
+          <li><strong>多角色适配</strong>：根据教练/学员身份自动调整风格和权限</li>
+        </ul>
+
+        <h3>5.3 智能提醒系统</h3>
+        <p>基于 OpenClaw Cron 引擎，实现晨间训练提醒（08:55）→ 晚间打卡检查（21:33）→ 周度运营报告（周日 20:03）的三层自动化提醒。</p>
+      </div>
+
+      <!-- Section 6 -->
+      <div class="doc-section" id="sec6">
+        <h2><span class="sec-num">06</span> 指令系统一览</h2>
+
+        <h3>6.1 教练端指令</h3>
+        <div class="doc-table">
+          <table>
+            <thead><tr><th>功能</th><th>指令</th><th>触发方式</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td>建档</td><td><code>新学员</code> / <code>建档</code></td><td>关键词</td><td>对话式建档</td></tr>
+              <tr><td>建档</td><td><code>下载模板</code> / <code>批量模板</code></td><td>关键词</td><td>获取模板文件</td></tr>
+              <tr><td>建档</td><td><code>导入档案</code> / <code>批量导入</code></td><td>关键词+文件</td><td>解析并创建档案</td></tr>
+              <tr><td>计划</td><td><code>生成计划 &lt;学员名&gt;</code></td><td>关键词</td><td>AI 生成周训练计划</td></tr>
+              <tr><td>饮食</td><td><code>饮食方案 &lt;学员名&gt;</code></td><td>关键词</td><td>生成饮食建议</td></tr>
+              <tr><td>查询</td><td><code>档案 &lt;学员名&gt;</code></td><td>关键词</td><td>查看完整档案</td></tr>
+              <tr><td>分析</td><td><code>分析</code> / <code>周报</code></td><td>关键词</td><td>行为分析/周度报告</td></tr>
+              <tr><td>看板</td><td><code>初始化看板</code> / <code>同步看板</code></td><td>关键词</td><td>创建/更新多维表格</td></tr>
+              <tr><td>看板</td><td><code>排行榜</code> / <code>趋势图</code> / <code>学员分布</code></td><td>关键词</td><td>可视化图表</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>6.2 学员端指令</h3>
+        <div class="doc-table">
+          <table>
+            <thead><tr><th>功能</th><th>指令</th><th>触发方式</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td>训练打卡</td><td><code>打卡</code> + 训练内容</td><td>文字</td><td>记录训练并获 AI 反馈</td></tr>
+              <tr><td>图片打卡</td><td>发送训练照片</td><td>图片</td><td>AI 分析动作标准度</td></tr>
+              <tr><td>体重记录</td><td><code>体重 &lt;数值&gt;</code> 或体重秤照片</td><td>文字/图片</td><td>更新体重并显示趋势</td></tr>
+              <tr><td>饮食打卡</td><td><code>饮食打卡</code> + 照片</td><td>关键词+图片</td><td>AI 分析热量和营养素</td></tr>
+              <tr><td>饮食查看</td><td><code>饮食记录</code> / <code>饮食统计</code></td><td>关键词</td><td>近期记录/月度统计</td></tr>
+              <tr><td>身体反馈</td><td><code>反馈</code> + 描述</td><td>关键词</td><td>记录身体状况，触发调整</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 7 -->
+      <div class="doc-section" id="sec7">
+        <h2><span class="sec-num">07</span> 数据存储设计</h2>
+
+        <h3>7.1 双层存储架构</h3>
+        <div class="highlight-grid two-col">
+          <div class="highlight-box blue">
+            <h4>💾 本地 Markdown</h4>
+            <ul>
+              <li>students/ — 学员档案</li>
+              <li>plans/ — 训练计划</li>
+              <li>checkins/ — 训练打卡记录</li>
+              <li>diet-checkins/ — 饮食打卡记录</li>
+              <li>reports/ — 运营报告</li>
+            </ul>
+          </div>
+          <div class="highlight-box orange">
+            <h4>☁️ 飞书多维表格</h4>
+            <ul>
+              <li>学员总表</li>
+              <li>打卡记录表</li>
+              <li>体重追踪表</li>
+              <li>饮食记录表</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>7.2 设计理念</h3>
+        <div class="doc-table">
+          <table>
+            <thead><tr><th>设计决策</th><th>理由</th></tr></thead>
+            <tbody>
+              <tr><td>Markdown 主存储</td><td>可读性强、版本控制友好、无外部数据库依赖</td></tr>
+              <tr><td>按月分文件</td><td>平衡文件大小与查询效率</td></tr>
+              <tr><td>拼音 ID</td><td>人类可读、唯一性保证、避免中文路径</td></tr>
+              <tr><td>图片就近存储</td><td>与记录同目录，方便关联查看</td></tr>
+              <tr><td>飞书表格同步</td><td>提供可视化看板，教练无需离开飞书</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 8 -->
+      <div class="doc-section" id="sec8">
+        <h2><span class="sec-num">08</span> 安全与权限</h2>
+
+        <h3>8.1 身份验证流程</h3>
+        <div class="flow-diagram linear">
+          <div class="flow-node flow-start">收到消息</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node flow-decision">匹配教练白名单？</div>
+          <div class="flow-split">
+            <div>
+              <span class="flow-label">✅ 是</span>
+              <div class="flow-node flow-action green-bg">教练身份<br><small>完整管理权限</small></div>
+            </div>
+            <div>
+              <span class="flow-label">❌ 否</span>
+              <div class="flow-node flow-decision">匹配学员档案？</div>
+              <div class="flow-split">
+                <div>
+                  <span class="flow-label">✅</span>
+                  <div class="flow-node flow-action blue-bg">学员身份<br><small>个人数据权限</small></div>
+                </div>
+                <div>
+                  <span class="flow-label">❌</span>
+                  <div class="flow-node flow-action gray-bg">访客<br><small>仅通用对话</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>8.2 权限矩阵</h3>
+        <div class="doc-table">
+          <table>
+            <thead>
+              <tr><th>操作</th><th>教练(私聊)</th><th>教练(群聊)</th><th>学员</th><th>访客</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>学员建档</td><td>✅</td><td>✅(需确认)</td><td>❌</td><td>❌</td></tr>
+              <tr><td>生成计划</td><td>✅</td><td>✅(需确认)</td><td>❌</td><td>❌</td></tr>
+              <tr><td>查看全员数据</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+              <tr><td>训练/饮食打卡</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+              <tr><td>查看自己数据</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+              <tr><td>系统配置</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>8.3 数据安全</h3>
+        <ul>
+          <li><strong>数据隔离</strong>：学员之间完全隔离</li>
+          <li><strong>敏感信息保护</strong>：API 密钥等绝不暴露</li>
+          <li><strong>群聊安全</strong>：自动过滤私密信息</li>
+          <li><strong>抗注入</strong>：内置 prompt 注入防护</li>
+        </ul>
+      </div>
+
+      <!-- Section 9 -->
+      <div class="doc-section" id="sec9">
+        <h2><span class="sec-num">09</span> 实际运行效果</h2>
+
+        <h3>9.1 学员档案示例</h3>
+        <div class="highlight-grid two-col">
+          <div class="highlight-box blue">
+            <h4>👤 张三</h4>
+            <ul>
+              <li>男 / 26岁 / 180cm</li>
+              <li>体重：85→76kg（-9kg 🎉）</li>
+              <li>体脂率：23.8% / BMI：26.2→23.5</li>
+              <li>目标：减脂（目标 75kg，仅差1kg）</li>
+              <li>训练：每周4天×30分钟</li>
+              <li>状态：活跃 🟢</li>
+              <li>备注：深蹲后膝盖曾不适，已调整计划</li>
+            </ul>
+          </div>
+          <div class="highlight-box purple">
+            <h4>👤 李四</h4>
+            <ul>
+              <li>女 / 28岁 / 175cm</li>
+              <li>体重：70kg（目标 65kg）</li>
+              <li>体脂率：18% / BMI：22.9</li>
+              <li>目标：减脂 + 提升核心力量</li>
+              <li>训练：每周4天×60分钟</li>
+              <li>状态：活跃 🟢</li>
+              <li>备注：乳糖不耐受</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>9.2 打卡记录示例</h3>
+        <div class="doc-table">
+          <table>
+            <thead><tr><th>日期</th><th>计划</th><th>实际完成</th><th>完成率</th><th>备注</th></tr></thead>
+            <tbody>
+              <tr><td>03-18</td><td>全身循环</td><td>卧推60kg 4×8</td><td>80%</td><td>自主加练胸部</td></tr>
+              <tr><td>03-18</td><td>核心+有氧</td><td>哑铃卧推50kg 4×10 + 俯身划船 + 平板支撑</td><td>85%</td><td>膝盖无不适</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="screenshot-placeholder">
+          <span>📌 截图位置：实际打卡交互截图 & 周报截图</span>
+        </div>
+      </div>
+
+      <!-- Section 10 -->
+      <div class="doc-section" id="sec10">
+        <h2><span class="sec-num">10</span> 总结与展望</h2>
+
+        <h3>10.1 项目亮点</h3>
+        <div class="highlight-grid two-col">
+          <div class="highlight-box green">
+            <h4>🏆 产品层面</h4>
+            <ul>
+              <li>✅ 飞书原生，零安装成本</li>
+              <li>✅ 教练端 + 学员端双端覆盖</li>
+              <li>✅ 自然语言交互，学习成本极低</li>
+              <li>✅ 多模态 AI（文字+图片+OCR）</li>
+              <li>✅ 自动化运营（提醒+周报）</li>
+            </ul>
+          </div>
+          <div class="highlight-box blue">
+            <h4>⚙️ 技术层面</h4>
+            <ul>
+              <li>✅ OpenClaw Agent 架构，可扩展性强</li>
+              <li>✅ 结构化数据存储，可追溯</li>
+              <li>✅ 飞书生态深度集成</li>
+              <li>✅ 完善的权限控制和安全防护</li>
+              <li>✅ 模块化 Skill 设计，功能可插拔</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>10.2 赛道定位</h3>
+        <p>本项目参加<strong>「生产力龙虾」赛道</strong>。ClawFit 通过 AI 赋能健身教练，将传统低效的手工管理升级为智能化、数据驱动的管理方式，真正实现<strong>"让每一位教练都能高效管理百名学员"</strong>。</p>
+
+        <h3>10.3 未来规划</h3>
+        <div class="doc-table">
+          <table>
+            <thead><tr><th>阶段</th><th>规划内容</th><th>预期效果</th></tr></thead>
+            <tbody>
+              <tr><td>近期</td><td>接入更多 AI 模型提升图片分析精度</td><td>动作评估准确率 &gt;90%</td></tr>
+              <tr><td>中期</td><td>支持语音交互，学员可语音打卡</td><td>降低使用门槛</td></tr>
+              <tr><td>中期</td><td>接入可穿戴设备数据（Apple Watch等）</td><td>自动采集心率、步数</td></tr>
+              <tr><td>远期</td><td>多教练协作，支持健身工作室场景</td><td>团队化运营能力</td></tr>
+              <tr><td>远期</td><td>AI 视频分析，实时评估训练动作</td><td>静态→动态突破</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>💪 ClawFit — AI 健身教练助手 | 北纬·龙虾大赛（第一届）参赛作品</p>
+      <p class="footer-sub">Built with OpenClaw · Powered by Claude · Running on Feishu</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClawFit — AI 健身教练助手</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">💪 ClawFit</a>
+      <div class="nav-links">
+        <a href="#features">功能</a>
+        <a href="#architecture">架构</a>
+        <a href="#demo">实战效果</a>
+        <a href="report/">项目说明书</a>
+      </div>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">🏆 北纬·龙虾大赛（第一届） · 生产力龙虾赛道</div>
+      <h1 class="hero-title">
+        <span class="title-gradient">ClawFit</span>
+        <br>AI 健身教练助手
+      </h1>
+      <p class="hero-subtitle">让每一位教练都能高效管理百名学员</p>
+      <p class="hero-desc">
+        基于 OpenClaw 构建的智能健身管理系统，以飞书为载体，<br>
+        通过 AI 驱动的学员建档、个性化训练计划、多模态打卡与饮食分析，<br>
+        实现教练端 + 学员端的全链路数字化管理。
+      </p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">2</div>
+          <div class="stat-label">双端覆盖</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">30+</div>
+          <div class="stat-label">指令</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3</div>
+          <div class="stat-label">AI 视觉能力</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">自动运营</div>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="#demo" class="btn btn-primary">查看实战效果 →</a>
+        <a href="report/" class="btn btn-secondary">项目说明书</a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>↓ 下滑探索</span>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="section pain-section" id="pain">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">💡 为什么需要 ClawFit</span>
+        <h2>健身教练的日常困境</h2>
+      </div>
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="pain-icon">📋</div>
+          <h3>信息碎片化</h3>
+          <p class="pain-before">学员数据散落在 Excel、微信、纸质笔记中，查找耗时</p>
+          <div class="pain-arrow">→</div>
+          <p class="pain-after">✅ 一个对话窗口，所有数据结构化存储，秒级检索</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">⏰</div>
+          <h3>跟进低效</h3>
+          <p class="pain-before">靠记忆追踪打卡，学员流失了才发现</p>
+          <div class="pain-arrow">→</div>
+          <p class="pain-after">✅ 自动打卡检查，连续缺勤≥3天立即预警</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">📊</div>
+          <h3>方案同质化</h3>
+          <p class="pain-before">通用训练模板，无法考虑每个人的伤病和条件</p>
+          <div class="pain-arrow">→</div>
+          <p class="pain-after">✅ AI 根据个人档案生成专属计划，动态调整</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">🍽️</div>
+          <h3>饮食管理空白</h3>
+          <p class="pain-before">完全依赖学员自觉，无法量化营养摄入</p>
+          <div class="pain-arrow">→</div>
+          <p class="pain-after">✅ 拍照即分析，AI 实时估算热量和三大营养素</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section features-section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🚀 核心功能</span>
+        <h2>教练端 + 学员端 双端覆盖</h2>
+      </div>
+
+      <!-- Coach Features -->
+      <div class="feature-group">
+        <div class="feature-group-header">
+          <span class="feature-group-icon">🧑‍🏫</span>
+          <h3>教练端</h3>
+          <p>全面管理，数据驱动运营</p>
+        </div>
+        <div class="feature-cards">
+          <div class="feature-card">
+            <div class="feature-card-icon">📝</div>
+            <h4>智能建档</h4>
+            <p>对话式 / 模板导入 / 批量导入 三种方式灵活建档，3 分钟完成一位学员</p>
+            <div class="feature-tags">
+              <span class="tag">对话式</span>
+              <span class="tag">模板导入</span>
+              <span class="tag">批量CSV</span>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon">🎯</div>
+            <h4>个性化计划</h4>
+            <p>根据学员目标、伤病、设备条件生成周训练计划，包含热身、主训和拉伸</p>
+            <div class="feature-tags">
+              <span class="tag">减脂</span>
+              <span class="tag">增肌</span>
+              <span class="tag">体态矫正</span>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon">📈</div>
+            <h4>运营分析</h4>
+            <p>自动生成周报，打卡率趋势、流失预警、续费提醒一目了然</p>
+            <div class="feature-tags">
+              <span class="tag">周报</span>
+              <span class="tag">流失预警</span>
+              <span class="tag">续费提醒</span>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon">📊</div>
+            <h4>数据看板</h4>
+            <p>飞书多维表格驱动，学员分布、打卡热力图、排行榜实时可视化</p>
+            <div class="feature-tags">
+              <span class="tag">饼图</span>
+              <span class="tag">折线图</span>
+              <span class="tag">看板</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student Features -->
+      <div class="feature-group">
+        <div class="feature-group-header">
+          <span class="feature-group-icon">🏋️</span>
+          <h3>学员端</h3>
+          <p>零门槛打卡，即时AI反馈</p>
+        </div>
+        <div class="feature-cards">
+          <div class="feature-card accent-green">
+            <div class="feature-card-icon">💬</div>
+            <h4>多形态训练打卡</h4>
+            <p>文字描述 / 训练照片 / 语音消息，怎么方便怎么来，AI 全能理解</p>
+            <div class="feature-tags">
+              <span class="tag tag-green">文字</span>
+              <span class="tag tag-green">图片</span>
+              <span class="tag tag-green">语音</span>
+            </div>
+          </div>
+          <div class="feature-card accent-green">
+            <div class="feature-card-icon">📸</div>
+            <h4>AI 动作分析</h4>
+            <p>发送训练照片，AI 自动识别动作、评估姿势标准度、给出改进建议</p>
+            <div class="feature-tags">
+              <span class="tag tag-green">动作识别</span>
+              <span class="tag tag-green">姿势评估</span>
+            </div>
+          </div>
+          <div class="feature-card accent-green">
+            <div class="feature-card-icon">🍽️</div>
+            <h4>饮食 AI 分析</h4>
+            <p>拍一张餐食照片 → 菜品识别 → 热量估算 → 三大营养素拆解 → 个性化建议</p>
+            <div class="feature-tags">
+              <span class="tag tag-green">热量估算</span>
+              <span class="tag tag-green">营养素</span>
+            </div>
+          </div>
+          <div class="feature-card accent-green">
+            <div class="feature-card-icon">⚖️</div>
+            <h4>体重 OCR</h4>
+            <p>拍摄体重秤照片，AI 自动识别数值、对比历史、显示趋势变化</p>
+            <div class="feature-tags">
+              <span class="tag tag-green">OCR</span>
+              <span class="tag tag-green">趋势追踪</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section class="section arch-section" id="architecture">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">⚙️ 技术架构</span>
+        <h2>四层架构，AI 驱动全链路</h2>
+      </div>
+      <div class="arch-diagram">
+        <div class="arch-layer">
+          <div class="arch-layer-label">用户层</div>
+          <div class="arch-layer-content">
+            <div class="arch-node node-user">🧑‍🏫 教练端<br><small>飞书私聊</small></div>
+            <div class="arch-node node-user">🏋️ 学员端<br><small>飞书群聊/私聊</small></div>
+          </div>
+        </div>
+        <div class="arch-arrow">↕</div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">应用层</div>
+          <div class="arch-layer-content">
+            <div class="arch-node node-app">🤖 飞书机器人</div>
+            <div class="arch-node node-app">📄 云文档</div>
+            <div class="arch-node node-app">📊 多维表格</div>
+            <div class="arch-node node-app">📅 日历</div>
+          </div>
+        </div>
+        <div class="arch-arrow">↕</div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">智能层</div>
+          <div class="arch-layer-content">
+            <div class="arch-node node-ai">🧠 LLM<br><small>Claude Opus/Sonnet</small></div>
+            <div class="arch-node node-ai">👁️ 计算机视觉<br><small>多模态分析</small></div>
+            <div class="arch-node node-ai">📝 NLP<br><small>指令解析</small></div>
+          </div>
+        </div>
+        <div class="arch-arrow">↕</div>
+        <div class="arch-layer">
+          <div class="arch-layer-label">数据层</div>
+          <div class="arch-layer-content">
+            <div class="arch-node node-data">💾 Markdown 存储<br><small>学员档案 · 打卡记录</small></div>
+            <div class="arch-node node-data">⏰ Cron 引擎<br><small>定时提醒 · 周报</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-stack">
+        <h3>技术栈</h3>
+        <div class="tech-items">
+          <div class="tech-item">
+            <strong>运行平台</strong>
+            <span>OpenClaw + 妙搭云电脑</span>
+          </div>
+          <div class="tech-item">
+            <strong>交互载体</strong>
+            <span>飞书（Lark）</span>
+          </div>
+          <div class="tech-item">
+            <strong>AI 模型</strong>
+            <span>Claude Sonnet / Opus</span>
+          </div>
+          <div class="tech-item">
+            <strong>图片分析</strong>
+            <span>妙搭多模态模型</span>
+          </div>
+          <div class="tech-item">
+            <strong>数据存储</strong>
+            <span>Markdown + 飞书多维表格</span>
+          </div>
+          <div class="tech-item">
+            <strong>定时调度</strong>
+            <span>OpenClaw Cron</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section — Tab Switcher -->
+  <section class="section demo-section" id="demo">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🎬 实战效果</span>
+        <h2>真实运行对话展示</h2>
+        <p class="section-desc">以下为 ClawFit 系统实际运行中的教练-学员交互记录，点击切换查看不同场景</p>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="demo-tabs">
+        <button class="demo-tab active" data-tab="tab-enroll">📋 学员建档</button>
+        <button class="demo-tab" data-tab="tab-checkin">💬 训练打卡</button>
+        <button class="demo-tab" data-tab="tab-photo">📸 图片动作分析</button>
+        <button class="demo-tab" data-tab="tab-food">🍽️ 饮食AI分析</button>
+        <button class="demo-tab" data-tab="tab-weight">⚖️ 体重OCR</button>
+        <button class="demo-tab" data-tab="tab-feedback">🩺 身体反馈</button>
+        <button class="demo-tab" data-tab="tab-report">📊 运营周报</button>
+      </div>
+
+      <!-- Tab Contents -->
+      <div class="demo-tab-contents">
+
+        <!-- TAB: 学员建档 -->
+        <div class="demo-tab-pane active" id="tab-enroll">
+          <div class="demo-pane-header">
+            <h3>对话式学员建档</h3>
+            <p>教练发送"新学员"，ClawFit 逐步引导收集完整信息，3 分钟自动生成结构化档案</p>
+          </div>
+          <div class="chat-window">
+            <div class="chat-header">
+              <span class="chat-dot green"></span>
+              <span class="chat-name">🧑‍🏫 王教练 × 💪 ClawFit</span>
+            </div>
+            <div class="chat-body">
+              <div class="msg msg-user">
+                <div class="msg-avatar">🧑‍🏫</div>
+                <div class="msg-content">
+                  <div class="msg-name">王教练</div>
+                  <div class="msg-bubble">新学员</div>
+                </div>
+              </div>
+              <div class="msg msg-bot">
+                <div class="msg-avatar">💪</div>
+                <div class="msg-content">
+                  <div class="msg-name">ClawFit</div>
+                  <div class="msg-bubble">好的！开始新学员建档 📋<br><br>请告诉我学员的基本信息：<br>1️⃣ <strong>姓名</strong><br>2️⃣ <strong>性别</strong><br>3️⃣ <strong>年龄</strong><br><br>可以一次性发送，也可以逐步补充~</div>
+                </div>
+              </div>
+              <div class="msg msg-user">
+                <div class="msg-avatar">🧑‍🏫</div>
+                <div class="msg-content">
+                  <div class="msg-name">王教练</div>
+                  <div class="msg-bubble">陈强，男，26岁，180cm，85kg，体脂率23.8%，目标减脂到75kg</div>
+                </div>
+              </div>
+              <div class="msg msg-bot">
+                <div class="msg-avatar">💪</div>
+                <div class="msg-content">
+                  <div class="msg-name">ClawFit</div>
+                  <div class="msg-bubble">收到！基础数据已记录 ✅<br><br>📊 <strong>BMI 计算</strong>：26.2（轻度超重）<br>🎯 <strong>减脂目标</strong>：85kg → 75kg（需减 10kg）<br><br>接下来需要了解：<br>1️⃣ 有没有<strong>伤病或身体不适</strong>？<br>2️⃣ 之前有<strong>训练经验</strong>吗？<br>3️⃣ 每周可以训练<strong>几天</strong>，每次<strong>多长时间</strong>？</div>
+                </div>
+              </div>
+              <div class="msg msg-user">
+                <div class="msg-avatar">🧑‍🏫</div>
+                <div class="msg-content">
+                  <div class="msg-name">王教练</div>
+                  <div class="msg-bubble">没有伤病，纯新手，每周4天，每次30分钟，在健身房练</div>
+                </div>
+              </div>
+              <div class="msg msg-bot">
+                <div class="msg-avatar">💪</div>
+                <div class="msg-content">
+                  <div class="msg-name">ClawFit</div>
+                  <div class="msg-bubble">✅ <strong>学员档案创建完成！</strong><br><br>📋 <strong>陈强</strong>（ID: chenqiang-20260319）<br>━━━━━━━━━━━━━━━━━<br>👤 男 / 26岁 / 180cm / 85kg<br>📊 BMI: 26.2 / 体脂率: 23.8%<br>🎯 减脂 → 目标 75kg<br>🏋️ 新手 / 每周4天×30分钟<br>🏢 健身房 / 常规设备<br>━━━━━━━━━━━━━━━━━<br><br>需要我现在就为陈强<strong>生成训练计划</strong>吗？</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: 训练打卡 -->
+        <div class="demo-tab-pane" id="tab-checkin">
+          <div class="demo-pane-header">
+            <h3>学员训练打卡 & AI 反馈</h3>
+            <p>学员发送打卡内容，ClawFit 即时分析训练质量并给出专业反馈和下次建议</p>
+          </div>
+          <div class="chat-window">
+            <div class="chat-header">
+              <span class="chat-dot green"></span>
+              <span class="chat-name">🏋️ 陈强 × 💪 ClawFit</span>
+            </div>
+            <div class="chat-body">
+              <div class="msg msg-user">
+                <div class="msg-avatar">🏋️</div>
+                <div class="msg-content">
+                  <div class="msg-name">陈强</div>
+                  <div class="msg-bubble">打卡 今天做了胸部训练：卧推60kg 4×8，上斜哑铃卧推20kg 3×12，绳索夹胸 3×15，状态不错</div>
+                </div>
+              </div>
+              <div class="msg msg-bot">
+                <div class="msg-avatar">💪</div>
+                <div class="msg-content">
+                  <div class="msg-name">ClawFit</div>
+                  <div class="msg-bubble">
+                    ✅ <strong>陈强打卡成功！</strong> — 2026-03-19<br><br>
+                    📊 <strong>训练分析</strong><br>
+                    ━━━━━━━━━━━━━━━━━<br>
+                    🏋️ 胸部专项训练<br>
+                    📈 完成度：<strong>90%</strong><br><br>
+                    💡 <strong>反馈</strong><br>
+                    • 卧推 60kg×4×8 对新手来说<strong>非常出色</strong>！💪 力量基础很好<br>
+                    • 训练编排合理：大重量复合（卧推）→ 中重量孤立（上斜哑铃）→ 绳索精修（夹胸）<br>
+                    • 上斜哑铃补充了上胸刺激，绳索夹胸强化胸肌收缩感，考虑很周全<br><br>
+                    📋 <strong>下次训练建议</strong><br>
+                    • 明天安排<strong>背部+核心</strong>，保持推拉平衡<br>
+                    • 卧推可以尝试渐进到 <strong>62.5kg</strong>，保持 4×8 的节奏 💪
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: 图片动作分析 -->
+        <div class="demo-tab-pane" id="tab-photo">
+          <div class="demo-pane-header">
+            <h3>训练照片 → AI 动作分析</h3>
+            <p>学员发送训练照片，AI 自动识别动作类型、评估姿势标准度、给出改进建议</p>
+          </div>
+          <div class="chat-window">
+            <div class="chat-header">
+              <span class="chat-dot green"></span>
+              <span class="chat-name">🏋️ 陈强 × 💪 ClawFit</span>
+            </div>
+            <div class="chat-body">
+              <div class="msg msg-user">
+                <div class="msg-avatar">🏋️</div>
+                <div class="msg-content">
+                  <div class="msg-name">陈强</div>
+                  <div class="msg-bubble msg-image">
+                    <!-- 📌 替换为真实训练照片：将 images/workout-photo.jpg 放入 images/ 目录 -->
+                    <img src="images/workout-photo.jpg" alt="训练照片" class="chat-photo" onerror="this.outerHTML='<div class=\'fake-image workout-image\'>🏋️<br><small>[ 请上传训练照片: images/workout-photo.jpg ]</small></div>'">
+                  </div>
+                </div>
+              </div>
+              <div class="msg msg-bot">
+                <div class="msg-avatar">💪</div>
+                <div class="msg-content">
+                  <div class="msg-name">ClawFit</div>
+                  <div class="msg-bubble">
+                    📸 收到您的训练照片！AI 分析中...<br><br>
+                    🏋️ <strong>动作识别</strong>：杠铃卧推<br><br>
+                    ✅ <strong>姿势评估</strong><br>
+                    ━━━━━━━━━━━━━━━━━<br>
+                    • 握距适中，与肩同宽偏外 ✅<br>
+                    • 肩胛骨收紧下沉，背部紧贴凳面 ✅<br>
+                    • 双脚稳定踩地，提供良好支撑 ✅<br>
+                    • 杠铃下放位置在乳头连线处 ✅<br><br>
+                    ⚠️ <strong>改进建议</strong><br>
+                    • 手腕略有弯折，建议保持中立位避免关节压力<br>
+                    • 推起时注意不要完全锁死肘关节<br><br>
+                    💪 整体姿势很标准！卧推基本功扎实，继续保持！<br><br>
+                    是否将这张照片关联到今日打卡？
+                  </div>
+                </div>
+              </div>
+              <div class="msg msg-user">
+                <div class="msg-avatar">🏋️</div>
+                <div class="msg-content">
+                  <div class="msg-name">陈强</div>
+                  <div class="msg-bubble">是</div>
+                </div>
+              </div>
+              <div class="msg msg-bot">
+                <div class="msg-avatar">💪</div>
+                <div class="msg-content">
+                  <div class="msg-name">ClawFit</div>
+                  <div class="msg-bubble">✅ 照片已关联到 3月19日打卡记录！<br>📸 保存至：checkins/chenqiang-20260319-2026-03-images/001.jpg</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: 饮食AI分析 -->
+        <div class="demo-tab-pane" id="tab-food">
+          <div class="demo-pane-header">
+            <h3>餐食拍照 → AI 营养分析</h3>
+            <p>学员拍一张餐食照片，AI 自动识别菜品、估算热量、拆解三大营养素</p>
+          </div>
+          <div class="chat-window">
+            <div class="chat-header">
+              <span class="chat-dot green"></span>
+              <span class="chat-name">🏋️ 陈强 × 💪 ClawFit</span>
+            </div>
+            <div class="chat-body">
+              <div class="msg msg-user">
+                <div class="msg-avatar">🏋️</div>
+                <div class="msg-content">
+                  <div class="msg-name">陈强</div>
+                  <div class="msg-bubble msg-image">
+                    <!-- 📌 替换为真实餐食照片：将 images/food-photo.jpg 放入 images/ 目录 -->
+                    <img src="images/food-photo.jpg" alt="餐食照片" class="chat-photo" onerror="this.outerHTML='<div class=\'fake-image food-image\'>🍜<br><small>[ 请上传餐食照片: images/food-photo.jpg ]</small></div>'">
+                  </div>
+                </div>
+              </div>
+              <div class="msg msg-bot">
+                <div class="msg-avatar">💪</div>
+                <div class="msg-content">
+                  <div class="msg-name">ClawFit</div>
+                  <div class="msg-bubble">
+                    📸 收到午餐照片！AI 分析中...<br><br>
+                    🍽️ <strong>餐食识别</strong><br>
+                    番茄鸡蛋面 · 煎蛋（1个）· 炒青菜<br><br>
+                    🔥 <strong>营养分析</strong><br>
+                    ━━━━━━━━━━━━━━━━━<br>
+                    总热量：<strong>~520 kcal</strong><br><br>
+                    <div class="nutrition-bar">
+                      <div class="nut-item">
+                        <span class="nut-label">🟡 碳水</span>
+                        <div class="nut-bar-track"><div class="nut-bar-fill carbs" style="width:50%"></div></div>
+                        <span class="nut-val">65g (50%)</span>
+                      </div>
+                      <div class="nut-item">
+                        <span class="nut-label">🔴 蛋白质</span>
+                        <div class="nut-bar-track"><div class="nut-bar-fill protein" style="width:14%"></div></div>
+                        <span class="nut-val">18g (14%)</span>
+                      </div>
+                      <div class="nut-item">
+                        <span class="nut-label">🟠 脂肪</span>
+                        <div class="nut-bar-track"><div class="nut-bar-fill fat" style="width:36%"></div></div>
+                        <span class="nut-val">21g (36%)</span>
+                      </div>
+                    </div>
+                    <br>
+                    💡 <strong>建议</strong><br>
+                    • 蛋白质偏低，建议加一份鸡胸肉或豆腐<br>
+                    • 碳水占比合理，适合训练日摄入<br><br>
+                    是否记录到今日饮食档案？
+                  </div>
+                </div>
+              </div>
+              <div class="msg msg-user">
+                <div class="msg-avatar">🏋️</div>
+                <div class="msg-content">
+                  <div class="msg-name">陈强</div>
+                  <div class="msg-bubble">是</div>
+                </div>
+              </div>
+              <div class="msg msg-bot">
+                <div class="msg-avatar">💪</div>
+                <div class="msg-content">
+                  <div class="msg-name">ClawFit</div>
+                  <div class="msg-bubble">✅ 已记录到 3月19日午餐档案！<br><br>📊 今日累计：午餐 520kcal / 目标 2100kcal<br>还有 1580kcal 的余量，晚餐记得补充蛋白质哦 💪</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: 体重OCR -->
+        <div class="demo-tab-pane" id="tab-weight">
+          <div class="demo-pane-header">
+            <h3>体重秤拍照 → OCR 自动识别</h3>
+            <p>学员拍体重秤照片，AI 自动提取数值、对比历史记录、显示变化趋势</p>
+          </div>
+          <div class="chat-window">
+            <div class="chat-header">
+              <span class="chat-dot green"></span>
+              <span class="chat-name">🏋️ 陈强 × 💪 ClawFit</span>
+            </div>
+            <div class="chat-body">
+              <div class="msg msg-user">
+                <div class="msg-avatar">🏋️</div>
+                <div class="msg-content">
+                  <div class="msg-name">陈强</div>
+                  <div class="msg-bubble msg-image">
+                    <!-- 📌 替换为真实体重秤照片：将 images/scale-photo.jpg 放入 images/ 目录 -->
+                    <img src="images/scale-photo.jpg" alt="体重秤照片" class="chat-photo" onerror="this.outerHTML='<div class=\'fake-image scale-image\'>⚖️<br><small>[ 请上传体重秤照片: images/scale-photo.jpg ]</small></div>'">
+                  </div>
+                </div>
+              </div>
+              <div class="msg msg-bot">
+                <div class="msg-avatar">💪</div>
+                <div class="msg-content">
+                  <div class="msg-name">ClawFit</div>
+                  <div class="msg-bubble">
+                    📸 收到体重照片！<br><br>
+                    ⚖️ <strong>OCR 识别结果</strong><br>
+                    ━━━━━━━━━━━━━━━━━<br>
+                    检测到体重：<strong>76.0 kg</strong>（置信度：高）<br><br>
+                    📈 <strong>变化追踪</strong><br>
+                    上次记录：85.0 kg（2026-03-19 建档）<br>
+                    变化：<strong>-9.0 kg</strong> ⬇️🎉<br><br>
+                    距目标 75kg 仅差 <strong>1kg</strong>！<br><br>
+                    已更新体重记录 ✅<br>
+                    BMI：23.5（正常） ← 原 26.2（超重）<br><br>
+                    🔥 <strong>太棒了！体重从超重区间进入正常区间，继续保持！</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: 身体反馈 -->
+        <div class="demo-tab-pane" id="tab-feedback">
+          <div class="demo-pane-header">
+            <h3>身体反馈 → 智能计划调整</h3>
+            <p>学员反馈身体不适，系统自动标记伤病风险并建议调整训练计划</p>
+          </div>
+          <div class="chat-window">
+            <div class="chat-header">
+              <span class="chat-dot green"></span>
+              <span class="chat-name">🏋️ 陈强 × 💪 ClawFit</span>
+            </div>
+            <div class="chat-body">
+              <div class="msg msg-user">
+                <div class="msg-avatar">🏋️</div>
+                <div class="msg-content">
+                  <div class="msg-name">陈强</div>
+                  <div class="msg-bubble">反馈 今天深蹲的时候膝盖有点不舒服</div>
+                </div>
+              </div>
+              <div class="msg msg-bot">
+                <div class="msg-avatar">💪</div>
+                <div class="msg-content">
+                  <div class="msg-name">ClawFit</div>
+                  <div class="msg-bubble">
+                    ⚠️ <strong>身体反馈已记录</strong><br><br>
+                    🦵 <strong>问题</strong>：深蹲后膝盖不适<br>
+                    📝 已标记到您的档案中<br><br>
+                    🏥 <strong>即时建议</strong><br>
+                    • 立即停止所有膝关节负重动作<br>
+                    • 今天用冰敷 15 分钟，观察是否持续<br>
+                    • 如果明天仍然不适，<strong>建议就医检查</strong><br><br>
+                    🔄 <strong>计划调整建议</strong><br>
+                    • 暂时将深蹲替换为<strong>腿举</strong>（减少膝关节压力）<br>
+                    • 增加<strong>靠墙静蹲</strong>强化膝关节稳定性<br>
+                    • 下肢训练日先观察 1 周再恢复深蹲<br><br>
+                    已通知王教练关注您的膝盖情况 🩺
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: 运营周报 -->
+        <div class="demo-tab-pane" id="tab-report">
+          <div class="demo-pane-header">
+            <h3>教练运营周报</h3>
+            <p>每周日 20:03 自动生成，教练无需手动汇总，一目了然掌握全局运营状态</p>
+          </div>
+          <div class="report-card">
+            <div class="report-header">
+              <h3>📊 周度运营报告 — 2026年3月18日-3月24日</h3>
+              <span class="report-badge">自动生成</span>
+            </div>
+            <div class="report-body">
+              <div class="report-overview">
+                <div class="report-stat">
+                  <div class="report-stat-num">3/3</div>
+                  <div class="report-stat-label">活跃学员</div>
+                </div>
+                <div class="report-stat">
+                  <div class="report-stat-num">71.5%</div>
+                  <div class="report-stat-label">平均打卡率</div>
+                </div>
+                <div class="report-stat">
+                  <div class="report-stat-num">3</div>
+                  <div class="report-stat-label">本周新建档</div>
+                </div>
+                <div class="report-stat">
+                  <div class="report-stat-num">0</div>
+                  <div class="report-stat-label">流失风险</div>
+                </div>
+              </div>
+              <div class="report-sections">
+                <div class="report-section">
+                  <h4>🟢 表现优秀</h4>
+                  <table>
+                    <tr><th>学员</th><th>打卡率</th><th>本周亮点</th></tr>
+                    <tr><td>陈强</td><td>90%</td><td>卧推60kg表现出色，训练结构合理，首周即高度自律</td></tr>
+                    <tr><td>张三</td><td>80%</td><td>卧推渐进到62.5kg，主动加背部训练，膝盖恢复良好</td></tr>
+                  </table>
+                </div>
+                <div class="report-section">
+                  <h4>🟡 需要关注</h4>
+                  <table>
+                    <tr><th>学员</th><th>打卡率</th><th>具体情况</th></tr>
+                    <tr><td>李四</td><td>50%</td><td>首次打卡表现出色（卧推60kg），但后续打卡频率偏低</td></tr>
+                  </table>
+                </div>
+                <div class="report-section">
+                  <h4>📈 体重变化追踪</h4>
+                  <table>
+                    <tr><th>学员</th><th>本周变化</th><th>总变化</th><th>距目标</th></tr>
+                    <tr><td>张三</td><td>-9.0kg</td><td>85→76kg</td><td>仅差 1kg 🎉</td></tr>
+                    <tr><td>陈强</td><td>—</td><td>85kg（基准）</td><td>目标 75kg</td></tr>
+                    <tr><td>李四</td><td>—</td><td>70kg（基准）</td><td>目标 65kg</td></tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /demo-tab-contents -->
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>💪 ClawFit — 让 AI 成为教练的超级助手</h2>
+        <p>基于 <a href="https://github.com/openclaw/openclaw" target="_blank">OpenClaw</a> 构建 · 运行于飞书妙搭云电脑</p>
+        <div class="cta-links">
+          <a href="report/" class="btn btn-primary btn-large">📄 项目说明书</a>
+          <a href="https://www.feishu.cn/docx/MpeLdhp82o2CuwxBiNIcNmXHnab" target="_blank" class="btn btn-secondary btn-large">📝 飞书原文</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>💪 ClawFit — AI 健身教练助手 | 北纬·龙虾大赛（第一届）参赛作品</p>
+      <p class="footer-sub">Built with OpenClaw · Powered by Claude · Running on Feishu</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

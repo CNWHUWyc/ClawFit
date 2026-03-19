@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClawFit · 项目海报</title>
+  <style>
+    :root {
+      --bg: #0f0f14;
+      --bg2: #17171f;
+      --bg3: #1f1f2b;
+      --primary: #FF6B35;
+      --primary-light: #FF8F5E;
+      --secondary: #06D6A0;
+      --accent: #FFD23F;
+      --text: #f0f0f5;
+      --text2: #8a8a9a;
+      --border: #2a2a38;
+      --green: #06D6A0;
+      --red: #FF4757;
+      --yellow: #FFD23F;
+      --blue: #3b82f6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a12;
+      display: flex; justify-content: center; align-items: flex-start;
+      min-height: 100vh; padding: 32px 16px;
+      font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+
+    .poster {
+      width: 794px; min-height: 1123px;
+      background: var(--bg); border-radius: 16px; overflow: hidden;
+      position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,.6);
+    }
+    .poster::before {
+      content: ''; position: absolute;
+      top: -120px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(255,107,53,.2) 0%, rgba(6,214,160,.08) 40%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 36px 48px 28px; text-align: center;
+      border-bottom: 1px solid var(--border); position: relative;
+    }
+    .contest-badge {
+      display: inline-block;
+      background: rgba(255,107,53,.12); border: 1px solid rgba(255,107,53,.35);
+      color: var(--primary-light); padding: 5px 18px; border-radius: 20px;
+      font-size: 12px; letter-spacing: .04em; margin-bottom: 18px;
+    }
+    .project-name {
+      font-size: 72px; font-weight: 900; letter-spacing: -3px; line-height: 1; margin-bottom: 10px;
+      background: linear-gradient(135deg, #FF6B35 0%, #FF8F5E 40%, #06D6A0 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .project-subtitle {
+      font-size: 18px; color: var(--text2); letter-spacing: .02em;
+    }
+    .project-tagline {
+      font-size: 13px; color: var(--secondary); margin-top: 6px; font-style: italic;
+    }
+
+    /* ── Stats ── */
+    .stats-section { padding: 24px 48px; border-bottom: 1px solid var(--border); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+    .stat-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px 14px; text-align: center;
+    }
+    .stat-emoji { font-size: 22px; margin-bottom: 6px; }
+    .stat-num {
+      font-size: 28px; font-weight: 800; line-height: 1.1;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-size: 11px; color: var(--text2); margin-top: 4px; line-height: 1.4; }
+
+    /* ── Architecture ── */
+    .arch-section { padding: 22px 48px; border-bottom: 1px solid var(--border); }
+    .section-heading {
+      font-size: 12px; font-weight: 700; color: var(--text2);
+      text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px;
+    }
+    .arch-flow {
+      display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: nowrap;
+    }
+    .arch-box {
+      border-radius: 8px; padding: 10px 14px; font-size: 12px;
+      text-align: center; white-space: nowrap; flex-shrink: 0;
+      border: 1px solid var(--border); background: var(--bg3);
+    }
+    .arch-box small { display: block; color: var(--text2); font-size: 10px; margin-top: 2px; }
+    .arch-box.user { border-color: rgba(255,107,53,.4); background: rgba(255,107,53,.08); color: var(--primary-light); }
+    .arch-box.ai { border-color: rgba(6,214,160,.4); background: rgba(6,214,160,.08); color: var(--secondary); }
+    .arch-box.data { border-color: rgba(59,130,246,.4); background: rgba(59,130,246,.08); color: #79c0ff; }
+    .arch-box.app { border-color: rgba(255,210,63,.4); background: rgba(255,210,63,.08); color: var(--accent); }
+    .arch-arrow { color: var(--text2); font-size: 14px; padding: 0 6px; flex-shrink: 0; }
+    .arch-sub {
+      display: flex; align-items: center; justify-content: center; gap: 0; margin-top: 10px;
+    }
+
+    /* ── Dual Features ── */
+    .features-section { padding: 22px 48px; border-bottom: 1px solid var(--border); }
+    .dual-header {
+      display: flex; gap: 12px; margin-bottom: 12px;
+    }
+    .dual-label {
+      padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
+    }
+    .dual-label.coach { background: rgba(255,107,53,.12); color: var(--primary-light); border: 1px solid rgba(255,107,53,.3); }
+    .dual-label.student { background: rgba(6,214,160,.12); color: var(--secondary); border: 1px solid rgba(6,214,160,.3); }
+    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+    .feature-item {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px;
+    }
+    .feature-item.coach-border { border-left: 3px solid rgba(255,107,53,.5); }
+    .feature-item.student-border { border-left: 3px solid rgba(6,214,160,.5); }
+    .feature-emoji { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .feature-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .feature-desc { font-size: 10.5px; color: var(--text2); line-height: 1.5; }
+
+    /* ── Demo Chat ── */
+    .demo-section { padding: 22px 48px; border-bottom: 1px solid var(--border); }
+    .demo-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+    .demo-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; overflow: hidden;
+    }
+    .demo-card-title {
+      font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .mini-chat { display: flex; flex-direction: column; gap: 6px; }
+    .mini-msg { display: flex; gap: 6px; align-items: flex-start; }
+    .mini-msg.right { flex-direction: row-reverse; }
+    .mini-avatar { width: 20px; height: 20px; border-radius: 50%; font-size: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .mini-avatar.human { background: rgba(255,107,53,.15); }
+    .mini-avatar.bot { background: rgba(6,214,160,.15); }
+    .mini-bubble {
+      padding: 6px 10px; border-radius: 8px; font-size: 10.5px; line-height: 1.5;
+      max-width: 85%; color: var(--text);
+    }
+    .mini-bubble.human-b { background: rgba(255,255,255,.06); }
+    .mini-bubble.bot-b { background: rgba(6,214,160,.06); border: 1px solid rgba(6,214,160,.15); }
+    .mini-bubble strong { color: var(--secondary); }
+    .mini-photo {
+      width: 80px; height: 54px; border-radius: 6px; object-fit: cover; display: block;
+    }
+    .mini-photo-placeholder {
+      width: 80px; height: 54px; border-radius: 6px; display: flex;
+      align-items: center; justify-content: center; font-size: 18px;
+      background: rgba(255,255,255,.04); border: 1px dashed rgba(255,255,255,.1);
+    }
+
+    /* ── Tech stack tags ── */
+    .tech-section { padding: 18px 48px; border-bottom: 1px solid var(--border); }
+    .tech-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tech-tag {
+      padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+      background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+    }
+    .tech-tag .tech-icon { margin-right: 4px; }
+
+    /* ── Highlights ── */
+    .highlights-section { padding: 18px 48px; border-bottom: 1px solid var(--border); }
+    .highlights-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .highlight-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; text-align: center;
+    }
+    .highlight-icon { font-size: 24px; margin-bottom: 6px; }
+    .highlight-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .highlight-desc { font-size: 10.5px; color: var(--text2); line-height: 1.5; }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 22px 48px; display: flex; align-items: center;
+      justify-content: space-between; background: var(--bg2);
+    }
+    .footer-left { display: flex; flex-direction: column; }
+    .footer-name { font-size: 15px; font-weight: 700; color: var(--text); }
+    .footer-role { font-size: 12px; color: var(--text2); margin-top: 2px; }
+    .footer-logo {
+      font-size: 22px; font-weight: 900; letter-spacing: -1px; text-align: center;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .footer-logo small {
+      display: block; font-size: 10px; font-weight: 400; letter-spacing: 0;
+      -webkit-text-fill-color: var(--text2);
+    }
+    .footer-right { text-align: right; }
+    .footer-link { font-size: 12px; color: var(--primary-light); }
+    .footer-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  </style>
+</head>
+<body>
+
+<div class="poster">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="contest-badge">北纬·龙虾大赛（第一届）· OpenClaw Hackathon · 生产力赛道</div>
+    <div class="project-name">ClawFit</div>
+    <div class="project-subtitle">AI 健身教练助手</div>
+    <div class="project-tagline">"让每一位教练都能高效管理百名学员"</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-emoji">👥</div>
+        <div class="stat-num">2端</div>
+        <div class="stat-label">教练端 + 学员端<br>双视角全覆盖</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-emoji">📋</div>
+        <div class="stat-num">30+</div>
+        <div class="stat-label">条自然语言指令<br>对话即操作</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-emoji">👁️</div>
+        <div class="stat-num">3类</div>
+        <div class="stat-label">AI 图片分析<br>训练·餐食·体重</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-emoji">⏰</div>
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">自动定时任务<br>晨提醒·晚检查·周报</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Architecture -->
+  <div class="arch-section">
+    <div class="section-heading">系统架构</div>
+    <div class="arch-flow">
+      <div class="arch-box user">🧑‍🏫 教练<small>飞书私聊</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-box app">🤖 飞书机器人<small>消息路由</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-box ai">🧠 AI 引擎<small>Claude + 多模态</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-box data">💾 数据层<small>Markdown + Bitable</small></div>
+    </div>
+    <div class="arch-sub">
+      <div class="arch-box user">🏋️ 学员<small>群聊/私聊</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-box app">📸 多模态入口<small>图片自动识别</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-box ai">⏰ Cron 调度<small>定时提醒/周报</small></div>
+      <div class="arch-arrow">⇄</div>
+      <div class="arch-box data">📊 飞书套件<small>文档·表格·日历</small></div>
+    </div>
+  </div>
+
+  <!-- Dual Features -->
+  <div class="features-section">
+    <div class="section-heading">核心功能</div>
+    <div class="dual-header">
+      <span class="dual-label coach">🧑‍🏫 教练端</span>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item coach-border">
+        <div class="feature-emoji">📋</div>
+        <div>
+          <div class="feature-title">智能建档</div>
+          <div class="feature-desc">对话/模板/批量三种方式，自动生成结构化档案</div>
+        </div>
+      </div>
+      <div class="feature-item coach-border">
+        <div class="feature-emoji">📝</div>
+        <div>
+          <div class="feature-title">训练计划生成</div>
+          <div class="feature-desc">基于学员数据 AI 生成个性化周计划</div>
+        </div>
+      </div>
+      <div class="feature-item coach-border">
+        <div class="feature-emoji">📊</div>
+        <div>
+          <div class="feature-title">运营分析周报</div>
+          <div class="feature-desc">打卡率·流失预警·体重趋势自动汇总</div>
+        </div>
+      </div>
+    </div>
+    <div class="dual-header">
+      <span class="dual-label student">🏋️ 学员端</span>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item student-border">
+        <div class="feature-emoji">📸</div>
+        <div>
+          <div class="feature-title">AI 动作分析</div>
+          <div class="feature-desc">上传训练照片 → 姿势评估 → 改进建议</div>
+        </div>
+      </div>
+      <div class="feature-item student-border">
+        <div class="feature-emoji">🍽️</div>
+        <div>
+          <div class="feature-title">饮食 AI 分析</div>
+          <div class="feature-desc">餐食拍照 → 热量估算 → 三大营养素拆解</div>
+        </div>
+      </div>
+      <div class="feature-item student-border">
+        <div class="feature-emoji">⚖️</div>
+        <div>
+          <div class="feature-title">体重 OCR 追踪</div>
+          <div class="feature-desc">拍体重秤 → 自动识别 → 趋势对比</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo Chat Showcase -->
+  <div class="demo-section">
+    <div class="section-heading">真实运行效果</div>
+    <div class="demo-grid">
+      <!-- Demo 1: 建档 -->
+      <div class="demo-card">
+        <div class="demo-card-title">📋 对话式建档</div>
+        <div class="mini-chat">
+          <div class="mini-msg">
+            <div class="mini-avatar human">🧑‍🏫</div>
+            <div class="mini-bubble human-b">新学员</div>
+          </div>
+          <div class="mini-msg">
+            <div class="mini-avatar bot">💪</div>
+            <div class="mini-bubble bot-b">好的！开始新学员建档 📋<br>请告诉我学员的基本信息…</div>
+          </div>
+          <div class="mini-msg">
+            <div class="mini-avatar human">🧑‍🏫</div>
+            <div class="mini-bubble human-b">陈强，男，26岁，180cm/85kg</div>
+          </div>
+          <div class="mini-msg">
+            <div class="mini-avatar bot">💪</div>
+            <div class="mini-bubble bot-b">✅ <strong>档案创建完成！</strong><br>BMI: 26.2 · 目标: 75kg</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 2: 训练打卡 -->
+      <div class="demo-card">
+        <div class="demo-card-title">💬 训练打卡反馈</div>
+        <div class="mini-chat">
+          <div class="mini-msg">
+            <div class="mini-avatar human">🏋️</div>
+            <div class="mini-bubble human-b">打卡 胸部训练：卧推60kg 4×8</div>
+          </div>
+          <div class="mini-msg">
+            <div class="mini-avatar bot">💪</div>
+            <div class="mini-bubble bot-b">✅ <strong>打卡成功！</strong><br>完成度: 90%<br>卧推60kg对新手非常出色！💪<br>明天建议安排背部+核心</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 3: 餐食分析 -->
+      <div class="demo-card">
+        <div class="demo-card-title">🍽️ AI 营养分析</div>
+        <div class="mini-chat">
+          <div class="mini-msg">
+            <div class="mini-avatar human">🏋️</div>
+            <div class="mini-bubble human-b" style="padding:4px;">
+              <img src="../images/food-photo.jpg" alt="餐食" class="mini-photo" onerror="this.outerHTML='<div class=mini-photo-placeholder>🍜</div>'">
+            </div>
+          </div>
+          <div class="mini-msg">
+            <div class="mini-avatar bot">💪</div>
+            <div class="mini-bubble bot-b">🍽️ 识别：番茄鸡蛋面+煎蛋+青菜<br>🔥 <strong>~520 kcal</strong><br>碳水 65g · 蛋白 18g · 脂肪 21g<br>💡 建议加一份鸡胸肉补蛋白</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo 4: 体重 OCR -->
+      <div class="demo-card">
+        <div class="demo-card-title">⚖️ 体重秤 OCR</div>
+        <div class="mini-chat">
+          <div class="mini-msg">
+            <div class="mini-avatar human">🏋️</div>
+            <div class="mini-bubble human-b" style="padding:4px;">
+              <img src="../images/scale-photo.jpg" alt="体重秤" class="mini-photo" onerror="this.outerHTML='<div class=mini-photo-placeholder>⚖️</div>'">
+            </div>
+          </div>
+          <div class="mini-msg">
+            <div class="mini-avatar bot">💪</div>
+            <div class="mini-bubble bot-b">⚖️ 识别: <strong>76.0 kg</strong><br>变化: -9.0 kg ⬇️🎉<br>BMI: 23.5（正常）<br>距目标 75kg 仅差 1kg！</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech Stack -->
+  <div class="tech-section">
+    <div class="section-heading">技术栈</div>
+    <div class="tech-tags">
+      <div class="tech-tag"><span class="tech-icon">🦞</span> OpenClaw</div>
+      <div class="tech-tag"><span class="tech-icon">🧠</span> Claude Opus/Sonnet</div>
+      <div class="tech-tag"><span class="tech-icon">👁️</span> 妙搭多模态</div>
+      <div class="tech-tag"><span class="tech-icon">💬</span> 飞书 Lark</div>
+      <div class="tech-tag"><span class="tech-icon">☁️</span> 妙搭云电脑</div>
+      <div class="tech-tag"><span class="tech-icon">⏰</span> Cron 调度引擎</div>
+      <div class="tech-tag"><span class="tech-icon">📄</span> Markdown 存储</div>
+      <div class="tech-tag"><span class="tech-icon">📊</span> 飞书多维表格</div>
+    </div>
+  </div>
+
+  <!-- Highlights -->
+  <div class="highlights-section">
+    <div class="section-heading">项目亮点</div>
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <div class="highlight-icon">🎯</div>
+        <div class="highlight-title">零 GUI 开发</div>
+        <div class="highlight-desc">纯对话式交互，飞书即前端，无需额外 App 开发</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🔄</div>
+        <div class="highlight-title">教练 + 学员双端</div>
+        <div class="highlight-desc">同一系统两种视角，角色切换无缝衔接</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">📸</div>
+        <div class="highlight-title">多模态 AI 驱动</div>
+        <div class="highlight-desc">训练姿势·餐食营养·体重 OCR，三类图片智能分析</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-left">
+      <div class="footer-name">王昱程</div>
+      <div class="footer-role">ClawFit 项目作者</div>
+    </div>
+    <div class="footer-logo">
+      💪 ClawFit
+      <small>Built with OpenClaw</small>
+    </div>
+    <div class="footer-right">
+      <div class="footer-link">github.io/ClawFit</div>
+      <div class="footer-sub">2026 · 生产力龙虾赛道</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
